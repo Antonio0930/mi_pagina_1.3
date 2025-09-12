@@ -1,0 +1,193 @@
+/* ================================
+   PROPIEDADES PERSONALIZADAS
+================================ */
+@property --flap-rotation {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --progress {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 20%;
+}
+
+body.fade-out {
+  transition: opacity 1s ease;
+  opacity: 0;
+}
+
+
+/* ==== ESTILOS SOBRE ==== */
+* { box-sizing: border-box; }
+body {
+  /* Gradiente más suave y romántico */
+  background: linear-gradient(135deg, #ffe6f0 0%, #f9c2e0 50%, #d4c0f0 100%);
+  background-size: 400% 400%;
+  
+  /* Animación lenta y fluida */
+  animation: gradientMove 30s ease-in-out infinite;
+  
+  /* Altura suficiente para el scroll del sobre */
+  min-height: 500vh;
+  
+  margin: 0;
+  
+  /* Fuente elegante y legible */
+  font-family: 'Poppins', sans-serif;
+  
+  /* Transición de fondo más suave al cambiar pantalla */
+  transition: background 1.5s ease;
+}
+
+/* Animación del gradiente */
+@keyframes gradientMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ================================
+   SOBRE
+================================ */
+
+.grid-template {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.envelope {
+  container: envelope/ inline-size;
+  perspective: 1000px;
+  position: relative;
+  width: 60vmin;
+  max-width: 400px;
+  aspect-ratio: 16/9;
+  background-color: rgb(226 232 240);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+              0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.flap {
+  background-color: rgb(203 213 225);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  width: 100%;
+  height: 50%;
+  transform-style: preserve-3d;
+  rotate: x var(--flap-rotation);
+  transform-origin: 50% 0;
+  animation: animate-flap ease both;
+  animation-timeline: scroll();
+  animation-range: 0 60%;
+  z-index: 4;
+  position: relative;
+}
+
+.face {
+  clip-path: polygon(50% 35%, 100% 0, 100% 100%, 0 100%, 0 0);
+  background-color: rgb(241 245 249);
+  inset: 0px;
+  position: absolute;
+  z-index: 3;
+}
+
+.paper {
+  position: absolute;
+  width: 70%;
+  height: 82%;
+  left: 50%;
+  top: 0;
+  transform: translateY(var(--progress));
+  animation: show-paper ease both;
+  animation-timeline: scroll();
+  animation-range: 60%;
+  margin-left: -33%;
+  z-index: 3;
+  background: #fbcfe8;
+  border: 2px solid #f9a8d4;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18vmin;
+}
+
+.paper span {
+  display: inline-block;
+  animation: appearEmoji 1s ease forwards;
+  opacity: 0;
+}
+
+/* ANIMACIONES SOBRE */
+@keyframes appearEmoji {
+  from { opacity: 0; transform: scale(0.5); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes animate-flap {
+  from { --flap-rotation: 0deg; }
+  99%  { z-index: 4; }
+  to   { --flap-rotation: 180deg; z-index: 1; }
+}
+
+@keyframes show-paper {
+  from { --progress: 20%; }
+  to   { --progress: -90%; }
+}
+
+/* CORAZÓN ANIMADO */
+.heart {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 18vmin;
+  z-index: 5;
+  transition: opacity .2s linear;
+  pointer-events: none;
+}
+
+.heart.beat { animation: beat-heart 1s infinite ease-in-out; }
+.heart.drop { animation: drop-heart 900ms ease forwards; }
+
+@keyframes beat-heart {
+  0%,100% { transform: translate(-50%,-50%) scale(1); }
+  50%     { transform: translate(-50%,-50%) scale(1.2); }
+}
+
+@keyframes drop-heart {
+  from { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+  to   { transform: translate(-50%,150%) scale(1.2); opacity: 0; }
+}
+
+/* TEXTO INSTRUCCIONES SCROLL */
+.text-clamp {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(24px,6vmin,50px);       
+  text-align: center;
+  color: #000;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 1s ease;
+}
+
+.hand-down {
+  font-size: 2rem;
+  animation: handMove 3s ease-in-out infinite;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes handMove {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(20px); }
+  100% { transform: translateY(0); }
+}
