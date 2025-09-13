@@ -1,5 +1,8 @@
 // CORAZÓN PALPITANDO Y CAÍDA
 const heart = document.getElementById('heart');
+const envelope = document.getElementById('envelope');
+const scrollText = document.getElementById('scrollText');
+
 window.addEventListener('scroll', ()=>{
   if(!heart.classList.contains('drop')){
     heart.classList.remove('beat');
@@ -22,12 +25,16 @@ heart.addEventListener('animationend', e=>{
 });
 
 // Desvanecer sobre
-envelope.style.opacity = 0;
-scrollText.style.opacity = 0;
-document.body.classList.add("fade-out");
+if(envelope && scrollText){
+  envelope.style.opacity = 0;
+  scrollText.style.opacity = 0;
+  document.body.classList.add("fade-out");
+}
 
 // Mostrar carta poco a poco después del fade-out
 setTimeout(() => {
   const cartaContainer = document.getElementById('cartaContainer');
-  cartaContainer.classList.add('visible'); // agrega la clase para que aparezca
+  if(cartaContainer){
+    cartaContainer.classList.add('visible'); // agrega la clase para que aparezca
+  }
 }, 1000);
