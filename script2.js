@@ -1,14 +1,25 @@
 const playBtn = document.getElementById('playMusicBtn');
 const mySong = document.getElementById('mySong');
 
+// Estado para evitar varios clics bloqueando Safari
+let audioInitialized = false;
+
 playBtn.addEventListener('click', () => {
-  if(mySong.paused){
-    mySong.currentTime = 148; // 1 minuto 30 segundos = 90s
+  if (!audioInitialized) {
+    // Intenta tocar el audio una vez para desbloquear iOS
+    mySong.play().catch(() => {
+      console.log("Necesita interacción real en iOS");
+    });
+    audioInitialized = true;
+  }
+
+  if (mySong.paused) {
+    mySong.currentTime = 148; // empieza en 1:30
     mySong.play();
     playBtn.textContent = "⏸ Pausa";
   } else {
     mySong.pause();
-    playBtn.textContent = "🎵Reprodúceme ❤️";
+    playBtn.textContent = "🎵 Reprodúceme ❤️";
   }
 });
 

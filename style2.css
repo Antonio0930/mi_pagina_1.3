@@ -5,18 +5,23 @@
   background: linear-gradient(90deg,#ff6fa5,#ff8fb7,#ffc0d9);
   color: #62113e;
   font-weight: bold;
-  font-size: 16px;
+  font-size: clamp(14px, 4vw, 18px); /* se adapta a pantalla chica */
   cursor: pointer;
   box-shadow: 0 6px 14px rgba(255,80,140,.35);
-  transition: 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
+  -webkit-tap-highlight-color: transparent; /* evita el flash azul en iOS */
 }
+
 #playMusicBtn:hover { transform: scale(1.05); }
-#playMusicBtn:active { transform: scale(0.98); }
+#playMusicBtn:active { 
+  transform: scale(0.95); 
+  box-shadow: 0 3px 7px rgba(255,80,140,.25);
+}
 
 .card footer {
   display: flex;
   justify-content: center;
-  gap: 20px; /* espacio entre los botones */
+  gap: 15px; /* espacio entre los botones */
   flex-wrap: wrap; /* opcional, por si la pantalla es muy chica */
 }
 
