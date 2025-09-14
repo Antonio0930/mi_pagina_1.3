@@ -57,9 +57,6 @@ function initCarta(){
   const btn = document.getElementById('btnPlay');
   btn.addEventListener('click', ()=> {
     for(let i=0;i<150;i++) setTimeout(spawnHeart, i*120);
-    spawnFireworks();
-    setTimeout(spawnFireworks, 300);
-    setTimeout(spawnFireworks, 600);
   });
 }
 

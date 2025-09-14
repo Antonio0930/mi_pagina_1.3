@@ -48,8 +48,9 @@ body {
 }
 
 .envelope {
-  perspective: 1000px;
-  position: relative;
+  perspective: 1200px;              /* un poco más profundo para el 3D */
+  -webkit-perspective: 1200px;
+  position: relative;               /* asegúrate que los hijos respeten z-index */
   width: 60vmin;
   max-width: 400px;
   aspect-ratio: 16/9;
@@ -63,18 +64,18 @@ body {
   clip-path: polygon(100% 0%, 0 0%, 50% 100%);
   width: 100%;
   height: 50%;
-  transform-style: preserve-3d;
-  rotate: x var(--flap-rotation);
-  transform-origin: 50% 0;
-  animation: animate-flap ease both;
-  animation-timeline: scroll();
-  animation-range: 0 60%;
-  z-index: 3;                                 /* aqui */
   position: relative;
-  -webkit-backface-visibility: hidden; /* evita que desaparezca en iOS */
+  z-index: 3;
+  transform: rotateX(0deg);   /* 👈 arranca cerrada */
+  transform-origin: 50% 0;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden; /* iPhone fix */
   backface-visibility: hidden;
   transition: transform 1s ease;
 }
+
+
+
 
 
 .face {
