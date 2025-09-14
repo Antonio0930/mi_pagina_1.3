@@ -2,40 +2,36 @@ const heart = document.getElementById('heart');
 const envelope = document.getElementById('envelope');
 const paper = document.querySelector('.paper');
 const flap = document.querySelector('.flap');
-const scrollText = document.getElementById('scrollText');
 
 let opened = false;
-
-// Deshabilitar scroll
 document.body.style.overflow = 'hidden';
 
 window.addEventListener('click', () => {
-  if(opened) return; // evita repetir
+  if(opened) return;
   opened = true;
 
-  // 1️⃣ Corazón late y luego cae
+  // ❤️ late y cae
   heart.classList.remove('beat');
   heart.classList.add('drop');
 
-  // 2️⃣ Después de 1s abrir sobre
+  // Abrir flap y subir papel
   setTimeout(() => {
-    flap.style.transition = 'transform 1s ease';
-    flap.style.transform = 'rotateX(180deg)';
+  flap.style.transform = 'rotateX(180deg)';
+  flap.style.zIndex = '3';  // mantener por encima del papel
+  paper.style.zIndex = '2';
+  paper.style.transform = 'translateY(-90%)';
+}, 500);
 
-    // Hacer que flap quede atrás del papel
-    flap.style.zIndex = '1';
-    paper.style.zIndex = '2';
+setTimeout(() => {
+  flap.style.zIndex = '1'; // ahora sí atrás
+}, 1500);
 
-    // 3️⃣ Animar papel subiendo
-    paper.style.transition = 'transform 1s ease';
-    paper.style.transform = 'translateY(-90%)';
-  }, 1000);
 
-  // 4️⃣ Fade-out y redirección
+  // Fade-out y redirección
   setTimeout(() => {
     document.body.classList.add('fade-out');
     setTimeout(() => {
       window.location.href = 'carta.html';
-    }, 500);
-  }, 4000); // suficiente para ver animaciones
+    }, 300);
+  }, 2000);
 });
